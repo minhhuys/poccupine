@@ -9,5 +9,11 @@
 
 export default {
   name: 'Home',
+
+  mounted() {
+    this.$store.dispatch('places').then(response => {
+      console.log("response", response)
+    })
+  }
 }
 </script>

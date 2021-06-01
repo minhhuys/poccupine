@@ -15,12 +15,12 @@ export const login = (params) => {
   return fetchAPI(url, endpoint, '', options);
 };
 
-export const places = (params) => {
+export const places = (token) => {
     const url = process.env.VUE_APP_API_URL;
     const endpoint = constants.API_ENDPOINT.places;
     const options = {
         headers: {
-            Authorization : params.token
+            Authorization : `Bearer ${token}`
         }
     }
   return fetchAPI(url, endpoint, '', options);

@@ -14,29 +14,49 @@
             @handleChange="onChangeInput"
         />
 
+        <p v-if="isError">Có lỗi xảy ra, vui lòng thử lại</p>
+
+
         <button @click="!isLoading ? submit() : null">
-            Đăng nhập
+            {{ isLoading ? 'Đang thực hiện' : 'Đăng nhập' }}
         </button>
+
         
     </div>
 </template>
 
 <script>
 import Input from "@/components/Input"
+import { mapState }  from "vuex"
+import { getCookie, removeCookie } from "@/utils.js"
+
 
 export default {
     components: {
         Input
     },
+    computed: {
+        ...mapState({
+            token: state => state.token,
+            expireTokenDate: state => state.expireTokenDate
+        }),
+        userToken() {
+            return this.token || getCookie(this.$constants.COOKIE_NAME__TOKEN)
+        }
+    },
     data() {
         return {
             username: '',
             password: '',
-            isLoading: false
+            isLoading: false,
+            isError: false
         }
     },
     methods: {
         onChangeInput(value, type) {
+            
+            if(this.isError) this.isError = false
+
             if(type === 'Username') {
                 this.username = value
             }
@@ -48,18 +68,40 @@ export default {
 
         submit() {
             if(!this.username && !this.password) return;
-            
 
             this.isLoading = true
+
             this.$store.dispatch('login', {
                 username : this.username,
                 password : this.password
-            }).then(response => {
+            }).then(() => {
                 this.isLoading = false
-                console.log("response", response)
+
+                if(this.userToken)  {
+                    this.$router.push({path : '/'})
+                }
+
             }).catch(error => {
-                console.log("errir", error)
+                this.isLoading = false
+                this.isError = true
+                console.error(error)
             })
+        }
+
+    },
+
+    mounted() {
+        const expDate = this.expireTokenDate || getCookie(this.$constants.COOKIE_NAME__EXPIRE_TOKEN_DATE)
+        const expireTokenDate = this.$dayjs(expDate).unix() || 0  
+        const now = new Date() / 1000
+
+        if(expDate) {
+            if(now === expireTokenDate || now > expireTokenDate) {
+                removeCookie(this.$constants.COOKIE_NAME__EXPIRE_TOKEN_DATE)
+                removeCookie(this.$constants.COOKIE_NAME__TOKEN)
+            } else {
+                return this.$router.push({path : '/'})
+            }
         }
 
     }
@@ -88,6 +130,10 @@ export default {
         &:hover {
             opacity: .8;
         }
+    }
+
+    p {
+        color: red;
     }
 }
 </style>
