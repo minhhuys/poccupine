@@ -14,7 +14,7 @@
             @handleChange="onChangeInput"
         />
 
-        <p v-if="isError">Có lỗi xảy ra, vui lòng thử lại</p>
+        <p v-if="isError">{{errorMessage}}</p>
 
 
         <button @click="!isLoading ? submit() : null">
@@ -49,7 +49,8 @@ export default {
             username: '',
             password: '',
             isLoading: false,
-            isError: false
+            isError: false,
+            errorMessage: ''
         }
     },
     methods: {
@@ -84,7 +85,7 @@ export default {
             }).catch(error => {
                 this.isLoading = false
                 this.isError = true
-                console.error(error)
+                this.errorMessage = error.message
             })
         }
 
