@@ -1,6 +1,11 @@
 <template>
   <div class="home">
-    <!-- <Login /> -->
+    <h3>List places</h3>
+    <ul>
+      <li v-for="place in places" :key="place.id">
+        {{place.id}}. {{place.name}}
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -8,12 +13,29 @@
 // @ is an alias to /src
 
 export default {
-  name: 'Home',
+  data() {
+    return {
+      places: []
+    }
+  },
 
-  mounted() {
+  created() {
     this.$store.dispatch('places').then(response => {
-      console.log("response", response)
+      if(response && response.length !== 0) {
+        this.places = response
+      }
     })
   }
 }
 </script>
+
+<style lang="scss" scoped>
+h3 {
+  padding-left: 40px;
+}
+ul {
+  li {
+    list-style: none;
+  }
+}
+</style>
