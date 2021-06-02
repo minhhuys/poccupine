@@ -100,6 +100,7 @@ export default {
             if(now === expireTokenDate || now > expireTokenDate) {
                 removeCookie(this.$constants.COOKIE_NAME__EXPIRE_TOKEN_DATE)
                 removeCookie(this.$constants.COOKIE_NAME__TOKEN)
+                return this.$router.push({path : '/login'})
             } else {
                 return this.$router.push({path : '/'})
             }
