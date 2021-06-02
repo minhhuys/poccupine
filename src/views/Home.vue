@@ -6,11 +6,14 @@
         {{place.id}}. {{place.name}}
       </li>
     </ul>
+
+    <p @click="logout">Đăng xuất</p>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
+import { removeCookie } from "@/utils.js"
 
 export default {
   data() {
@@ -25,6 +28,14 @@ export default {
         this.places = response
       }
     })
+  },
+  methods: {
+    logout() {
+      removeCookie(this.$constants.COOKIE_NAME__EXPIRE_TOKEN_DATE)
+      removeCookie(this.$constants.COOKIE_NAME__TOKEN)
+
+      this.$router.push({path : '/login'})
+    }
   }
 }
 </script>
@@ -37,5 +48,12 @@ ul {
   li {
     list-style: none;
   }
+}
+
+p {
+  position: absolute;
+  right: 40px;
+  top: 10px;
+  cursor: pointer;
 }
 </style>

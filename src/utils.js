@@ -17,5 +17,5 @@ export function setCookie(cname, cvalue, exdays) {
 }
 
 export function removeCookie(key) {
-    return VueCookie.remove(key);
+    return VueCookie.delete(key);
 }
