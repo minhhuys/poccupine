@@ -1,5 +1,7 @@
 <template>
     <div class="login">
+        <img src="https://www.poccupine.com/images/Poccupine-Logo-04.png" width="100" height="100" alt="">
+
         <Input 
             :label="`Username`"
             :inputType="`text`"
