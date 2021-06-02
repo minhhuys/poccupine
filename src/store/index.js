@@ -45,7 +45,14 @@ export default new Vuex.Store({
       const token = state.token || getCookie('token')
       return new Promise((resolve, reject) => {
         places(token).then(response => {
-          resolve(response)
+          if(response && response.length !== 0) {
+            resolve(response)
+          }
+
+          if(response && response.errorCode) {
+            reject(response)
+          }
+          
         }).catch(error => {
           reject(error)
         })
