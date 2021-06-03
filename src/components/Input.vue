@@ -42,9 +42,10 @@ input {
 	margin:15px 0;
 	padding:15px 10px;
 	width:100%;
+    height: 60px;
 	outline:none;
 	border:1px solid #bbb;
-	border-radius: 20px;
+	border-radius: 6px;
 	display:inline-block;
 	-webkit-box-sizing:border-box;
 	   -moz-box-sizing:border-box;

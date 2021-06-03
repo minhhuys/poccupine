@@ -21,9 +21,7 @@
 
         <button @click="!isLoading ? submit() : null">
             {{ isLoading ? 'Đang thực hiện' : 'Đăng nhập' }}
-        </button>
-
-        
+        </button>            
     </div>
 </template>
 
@@ -31,7 +29,6 @@
 import Input from "@/components/Input"
 import { mapState }  from "vuex"
 import { getCookie, removeCookie } from "@/utils.js"
-
 
 export default {
     components: {
@@ -52,7 +49,7 @@ export default {
             password: '',
             isLoading: false,
             isError: false,
-            errorMessage: ''
+            errorMessage: '',
         }
     },
     methods: {
@@ -89,7 +86,7 @@ export default {
                 this.isError = true
                 this.errorMessage = error.message
             })
-        }
+        },
 
     },
 
@@ -124,13 +121,14 @@ export default {
 
     button {
         width: 150px;
-        background-color: rgb(23, 105, 255);
+        background-color: #0125a0;
         color: white;
-        border-radius: 4px;
+        border-radius: 6px;
         padding: 10px;
         outline: none;
         border: none;
         cursor: pointer;
+        font-weight: 600;
 
         &:hover {
             opacity: .8;
