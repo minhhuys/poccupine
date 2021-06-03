@@ -171,14 +171,17 @@ p {
 }
 
 .loader {
-  margin-left: 40px;
-  border: 5px solid #f1f1f1;
+  border: 3px solid #1e2749;
   border-radius: 50%;
-  border-top: 5px solid #eaeaea;
-  width: 15px;
-  height: 15px;
+  border-top: 3px solid #aeecef;
+  width: 25px;
+  height: 25px;
   -webkit-animation: spin .8s linear infinite; /* Safari */
   animation: spin .8s linear infinite;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Safari */
