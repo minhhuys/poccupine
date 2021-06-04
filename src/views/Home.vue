@@ -8,6 +8,7 @@
       </li>
 
       <button 
+        v-if="paginate.length > 1"
         v-for="pageNumber in totalPages" 
         :key="pageNumber.id" v-bind:key="pageNumber" 
         @click="setPage(pageNumber)" 
